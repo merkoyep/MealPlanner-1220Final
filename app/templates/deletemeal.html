@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Delete Meal</h1>
+<p>Are you sure you want to delete {{ meal.name }}</p>
+<form method="POST" action="{{ url_for('main.delete_meal', meal_id=meal.id) }}">
+  {{ form.csrf_token }}
+  <fieldset>{{ form.delete }}</fieldset>
+</form>
+
+{% endblock %}

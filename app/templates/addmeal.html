@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Add a new meal</h1>
+<form method="POST" action="{{ url_for('main.add_meal') }}">
+  {{ form.csrf_token }}
+  <fieldset>
+    <legend>Create a new meal</legend>
+
+    {{ form.name.label }} {{ form.name }} {{ form.ingredients.label }} {{
+    form.ingredients }} {{ form.instructions.label }} {{ form.instructions }}
+
+    <ul>
+      {% for error in form.name.errors %}
+      <li class="error">{{ error }}</li>
+      {% endfor %} {% for error in form.ingredients.errors %}
+      <li class="error">{{ error }}</li>
+      {% endfor %} {% for error in form.instructions.errors %}
+      <li class="error">{{ error }}</li>
+      {% endfor %}
+    </ul>
+
+    {{ form.submit }}
+  </fieldset>
+</form>
+
+{% endblock %}

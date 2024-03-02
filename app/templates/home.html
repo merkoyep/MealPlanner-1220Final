@@ -1,0 +1,13 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>HOME!</h1>
+<ul>
+  {% for schedule in schedules %}
+  <li>{{schedule.meal_date}} - {{schedule.meal.name}}</li>
+  <form action="/delete_schedule/{{ schedule.id }}" method="POST">
+    <input type="submit" value="Delete Schedule" />
+  </form>
+  {% endfor %}
+</ul>
+
+{% endblock %}

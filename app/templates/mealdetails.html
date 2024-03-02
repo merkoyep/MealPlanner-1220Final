@@ -1,0 +1,37 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>{{ meal.name }}</h1>
+
+<h2>Ingredients:</h2>
+<p>{{ meal.ingredients }}</p>
+
+<h2>Instructions:</h2>
+<p>{{ meal.instructions }}</p>
+
+<form
+  method="POST"
+  action="{{ url_for('main.meal_details', meal_id=meal.id) }}"
+>
+  {{ form.csrf_token }}
+  <fieldset>
+    <legend>Edit this meal</legend>
+
+    {{ form.name.label }} {{ form.name }} {{ form.ingredients.label }} {{
+    form.ingredients }} {{ form.instructions.label }} {{ form.instructions }}
+
+    <ul>
+      {% for error in form.name.errors %}
+      <li class="error">{{ error }}</li>
+      {% endfor %} {% for error in form.ingredients.errors %}
+      <li class="error">{{ error }}</li>
+      {% endfor %} {% for error in form.instructions.errors %}
+      <li class="error">{{ error }}</li>
+      {% endfor %}
+    </ul>
+
+    {{ form.submit }}
+  </fieldset>
+  <a href="/delete_meal/{{ meal.id }}">Delete Meal</a>
+</form>
+
+{% endblock %}

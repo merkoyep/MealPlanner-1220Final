@@ -1,0 +1,22 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Add a new scheduled meal</h1>
+<form method="POST" action="{{ url_for('main.add_schedule') }}">
+  {{ form.csrf_token }}
+  <fieldset>
+    <legend>Create a new scheduled meal</legend>
+
+    {{ form.meal_date.label }} {{ form.meal_date }} {{ form.meal.label }} {{
+    form.meal }}
+
+    <ul>
+      {% for error in form.meal.errors %}
+      <li class="error">{{ error }}</li>
+      {% endfor %}
+    </ul>
+
+    {{ form.submit }}
+  </fieldset>
+</form>
+
+{% endblock %}

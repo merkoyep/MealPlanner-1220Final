@@ -1,0 +1,16 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Delete Schedule</h1>
+<p>
+  Are you sure you want to delete {{schedule.meal.name}} on {{
+  schedule.meal_date.strftime('%B %d, %Y') }} ?
+</p>
+<form
+  method="POST"
+  action="{{ url_for('main.delete_schedule', schedule_id=schedule.id) }}"
+>
+  {{ form.csrf_token }}
+  <fieldset>{{ form.delete }}</fieldset>
+</form>
+
+{% endblock %}
