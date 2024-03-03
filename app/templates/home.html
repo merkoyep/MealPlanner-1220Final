@@ -1,12 +1,17 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>HOME!</h1>
+<h1>Scheduled Meals:</h1>
+<a href="/add_schedule">Schedule a meal</a>
 <ul>
   {% for schedule in schedules %}
-  <li>{{schedule.meal_date}} - {{schedule.meal.name}}</li>
-  <form action="/delete_schedule/{{ schedule.id }}" method="POST">
-    <input type="submit" value="Delete Schedule" />
-  </form>
+  <li>
+    {{schedule.meal_date.strftime('%B %d, %Y')}} -
+    <a href="/meal_details/{{schedule.meal_id}}">{{schedule.meal.name}}</a>
+    <form action="/delete_schedule/{{ schedule.id }}" method="POST">
+      <input type="submit" value="Delete Schedule" />
+    </form>
+  </li>
+
   {% endfor %}
 </ul>
 

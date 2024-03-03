@@ -19,6 +19,7 @@ def signup():
         db.session.add(new_user)
         db.session.commit()
         flash('Account Created!')
+        return redirect(url_for('auth.login'))
     return render_template('signup.html', form=form)
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -29,6 +30,7 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         login_user(user, remember=True)
         next_page = request.args.get('next')
+        print("logged in")
         return redirect(next_page if next_page else url_for('main.homepage'))
     return render_template('login.html', form=form)
 

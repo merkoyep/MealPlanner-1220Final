@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import login_required, current_user
-from app.extensions import db
-from app.models import Meal, Schedule
+from app.extensions import db, app
+from app.models import Meal, Schedule, User
 from app.main.forms import MealForm, DeleteForm, ScheduleForm
 main = Blueprint('main', __name__)
 
@@ -9,7 +9,10 @@ main = Blueprint('main', __name__)
 @main.route('/', methods=['GET', 'POST'])
 @login_required
 def homepage():
-    schedules = Schedule.query.all()
+    if current_user.is_authenticated:
+        schedules = Schedule.query.filter_by(user_id=current_user.id).order_by(Schedule.meal_date).all()
+    else:
+        schedules = []
     return render_template('home.html', schedules=schedules)
 
 @main.route('/add_meal', methods=['GET', 'POST'])
@@ -46,12 +49,15 @@ def all_meals():
 def meal_details(meal_id):
     meal = Meal.query.get(meal_id)
     form = MealForm(obj=meal)
+
     if form.validate_on_submit():
+        print('after validation')
         meal.name = form.name.data
         meal.ingredients = form.ingredients.data
         meal.instructions = form.instructions.data
         db.session.commit()
         flash('Meal updated.')
+        return redirect(url_for('main.meal_details', meal_id=meal_id))
     meal = Meal.query.get(meal.id)
     return render_template('mealdetails.html', form=form, meal=meal)
 
@@ -72,8 +78,10 @@ def delete_meal(meal_id):
 def add_schedule():
     form = ScheduleForm()
     form.meal.choices = [(meal.id, meal.name) for meal in Meal.query.all()]
-
+    print('before validation')
     if form.validate_on_submit():
+        print('after validation')
+        print(f'{form.meal_date.data}, {form.meal.data}')
         new_schedule = Schedule(
             meal_date=form.meal_date.data, 
             meal_id=form.meal.data,
@@ -81,6 +89,7 @@ def add_schedule():
             )
         db.session.add(new_schedule)
         db.session.commit()
+        print('committed')
         flash('Schedule added successfully!')
         return redirect(url_for('main.homepage'))
     

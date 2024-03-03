@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Project Title</title>
-        <link rel="stylesheet" href="/static/style.css">
-    </head>
-    <body>
-        <!-- Add base html here. -->
-        
-        {% block content %}{% endblock %}
-    </body>
+  <head>
+    <title>Project Title</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <!-- Add base html here. -->
+    <nav>
+      <a href="/">Home</a>
+      {% if current_user.is_authenticated %}
+      <a href="/all_meals">Meals</a>
+      <a href="/logout">Log Out</a>
+      {% else %}
+      <!-- TODO: Only show these links if the current user is NOT
+                        authenticated (logged in)! -->
+      <a href="/signup">Sign Up</a>
+      <a href="/login">Log In</a>
+      {% endif %}
+    </nav>
+    {% block content %}{% endblock %}
+  </body>
 </html>
