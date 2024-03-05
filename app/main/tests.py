@@ -11,21 +11,25 @@ app.register_blueprint(auth)
 app.register_blueprint(main)
 
 def login(client, username, password):
+    """Handles Login process for user"""
     return client.post('/login', data=dict(
         username=username,
         password=password
     ), follow_redirects=True)
 
 def logout(client):
+    """Handles Logout"""
     return client.get('/logout', follow_redirects=True)
 
 def create_user():
+    """Creates user in database"""
     password_hash = bcrypt.generate_password_hash('password').decode('utf-8')
     user = User(username='user1', password=password_hash)
     db.session.add(user)
     db.session.commit()
 
 def create_meals():
+    """Creates meals in the database, accessible for all users."""
     meal1 = Meal(
         name='Pizza',
         ingredients='Dough, Tomato Sauce, Pepperoni',
@@ -42,6 +46,7 @@ def create_meals():
     db.session.commit()
 
 def create_schedules():
+    """Creates schedule in the database."""
     password_hash = bcrypt.generate_password_hash('password2').decode('utf-8')
     schedule1 = Schedule(
         meal_date = date(2024, 3, 4),
@@ -84,6 +89,7 @@ class MainTests(unittest.TestCase):
         self.assertNotIn('<a href="/signout">Sign Out</a>', response_text)
     
     def test_homepage_logged_in(self):
+        """Ensures login functions properly."""
         create_user()
         create_meals()
         create_schedules()
@@ -98,6 +104,7 @@ class MainTests(unittest.TestCase):
         self.assertNotIn('Sign Up', response_text)
 
     def test_update_meal(self):
+        """Tests updating of meal."""
         app.config['LOGIN_DISABLED'] = True
         create_meals()
 
@@ -114,6 +121,7 @@ class MainTests(unittest.TestCase):
         self.assertEqual(meal.instructions, '1. Prep ingredients, 2. Wrap into burrito')
     
     def test_create_meal(self):
+        """Tests meal creation process"""
         app.config['LOGIN_DISABLED'] = True
 
         new_meal = {
@@ -128,6 +136,7 @@ class MainTests(unittest.TestCase):
         self.assertEqual(meal.instructions, '1. Bring water to a boil, add udon noodles to cook. 2.Strain, add noodles to broth, add toppings.')
 
     def test_delete_meal(self):
+        """Tests and ensures meals delete as expected."""
         app.config['LOGIN_DISABLED'] = True
         create_meals()
         response = self.app.post('/delete_meal/1', follow_redirects=True)

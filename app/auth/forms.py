@@ -6,7 +6,7 @@ from app.models import User
 from app.extensions import bcrypt
 
 class SignUpForm(FlaskForm):
-    # Fill out the form fields & validators!
+    """Creates form for signup."""
     username = StringField('User Name', validators=[DataRequired(), Length(min=3, max=50)])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Sign Up')
@@ -17,7 +17,7 @@ class SignUpForm(FlaskForm):
             raise ValidationError('That username is taken. Please chose a different one.')
 
 class LoginForm(FlaskForm):
-    # Fill out the form fields & validators!
+    """Creates login form."""
     username = StringField('User Name',
         validators=[DataRequired(), Length(min=3, max=50)])
     password = PasswordField('Password', validators=[DataRequired()])

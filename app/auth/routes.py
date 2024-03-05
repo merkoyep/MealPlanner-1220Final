@@ -6,9 +6,9 @@ from app.extensions import bcrypt, app, db
 
 auth = Blueprint('auth', __name__)
 
-# Create your routes here.
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup():
+    """Route to signup user."""
     form = SignUpForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -24,7 +24,7 @@ def signup():
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    # Fill out this route!
+    """Login route"""
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()

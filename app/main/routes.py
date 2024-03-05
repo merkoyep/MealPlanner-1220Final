@@ -18,6 +18,7 @@ def homepage():
 @main.route('/add_meal', methods=['GET', 'POST'])
 @login_required
 def add_meal():
+    """Adds meal to database."""
     form = MealForm()
 
     if form.validate_on_submit():
@@ -41,12 +42,14 @@ def add_meal():
 @main.route('/all_meals')
 @login_required
 def all_meals():
+    """Shows all meals in route."""
     all_meals = Meal.query.all()
     return render_template('meals.html', all_meals=all_meals)
 
 @main.route('/meal_details/<meal_id>', methods=['GET', 'POST'])
 @login_required
 def meal_details(meal_id):
+    """Shows all details for meal and allows for meal updating."""
     meal = Meal.query.get(meal_id)
     form = MealForm(obj=meal)
 
@@ -63,6 +66,7 @@ def meal_details(meal_id):
 
 @main.route('/delete_meal/<meal_id>', methods=['GET', 'POST'])
 def delete_meal(meal_id):
+    """Deletes given meal by ID"""
     meal = Meal.query.filter_by(id=meal_id).first()
     form = DeleteForm()
 
@@ -76,6 +80,7 @@ def delete_meal(meal_id):
 
 @main.route('/add_schedule', methods=['GET','POST'])
 def add_schedule():
+    """Adds schedule to database, connects to current user and meal."""
     form = ScheduleForm()
     form.meal.choices = [(meal.id, meal.name) for meal in Meal.query.all()]
     print('before validation')
@@ -97,6 +102,7 @@ def add_schedule():
 
 @main.route('/delete_schedule/<schedule_id>', methods=['POST'])
 def delete_schedule(schedule_id):
+    """Deletes schedule from database."""
     form = DeleteForm()
     schedule = Schedule.query.filter_by(id=schedule_id).first()
     if form.validate_on_submit():
