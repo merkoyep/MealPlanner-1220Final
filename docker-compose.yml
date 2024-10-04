@@ -2,9 +2,9 @@ services:
   db:
     image: postgres:13
     environment:
-      - POSTGRES_DB=mydatabase
-      - POSTGRES_USER=myuser
-      - POSTGRES_PASSWORD=mypassword
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
       - db_data:/var/lib/postgresql/data
     ports:
@@ -20,5 +20,3 @@ services:
       - '5000:5000'
     depends_on:
       - db
-volumes:
-  db_data:
