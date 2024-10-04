@@ -3,11 +3,12 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 from app.config import Config
+from app.main.routes import main
 import os
 
 app = Flask(__name__)
 app.config.from_object(Config)
-
+app.register_blueprint(main)
 db = SQLAlchemy(app)
 
 ###########################
