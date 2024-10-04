@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import login_required, current_user
-from app.extensions import db, app
 from app.models import Meal, Schedule, User
 from app.main.forms import MealForm, DeleteForm, ScheduleForm
 main = Blueprint('main', __name__)
@@ -9,6 +8,7 @@ main = Blueprint('main', __name__)
 @main.route('/', methods=['GET', 'POST'])
 @login_required
 def homepage():
+    from app.extensions import db
     if current_user.is_authenticated:
         schedules = Schedule.query.filter_by(user_id=current_user.id).order_by(Schedule.meal_date).all()
     else:
@@ -19,6 +19,7 @@ def homepage():
 @login_required
 def add_meal():
     """Adds meal to database."""
+    from app.extensions import db
     form = MealForm()
 
     if form.validate_on_submit():
@@ -43,12 +44,14 @@ def add_meal():
 @login_required
 def all_meals():
     """Shows all meals in route."""
+    from app.extensions import db
     all_meals = Meal.query.all()
     return render_template('meals.html', all_meals=all_meals)
 
 @main.route('/meal_details/<meal_id>', methods=['GET', 'POST'])
 @login_required
 def meal_details(meal_id):
+    from app.extensions import db
     """Shows all details for meal and allows for meal updating."""
     meal = Meal.query.get(meal_id)
     form = MealForm(obj=meal)
@@ -67,6 +70,7 @@ def meal_details(meal_id):
 @main.route('/delete_meal/<meal_id>', methods=['GET', 'POST'])
 def delete_meal(meal_id):
     """Deletes given meal by ID"""
+    from app.extensions import db
     meal = Meal.query.filter_by(id=meal_id).first()
     form = DeleteForm()
 
@@ -81,6 +85,7 @@ def delete_meal(meal_id):
 @main.route('/add_schedule', methods=['GET','POST'])
 def add_schedule():
     """Adds schedule to database, connects to current user and meal."""
+    from app.extensions import db
     form = ScheduleForm()
     form.meal.choices = [(meal.id, meal.name) for meal in Meal.query.all()]
     print('before validation')

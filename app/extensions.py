@@ -3,12 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 from app.config import Config
-from app.main.routes import main
 import os
 
 app = Flask(__name__)
 app.config.from_object(Config)
-app.register_blueprint(main)
+
 db = SQLAlchemy(app)
 
 ###########################
@@ -29,3 +28,6 @@ def load_user(user_id):
     return User.query.get(user_id)
 
 bcrypt = Bcrypt(app)
+
+from app.main.routes import main
+app.register_blueprint(main)
