@@ -30,4 +30,6 @@ def load_user(user_id):
 bcrypt = Bcrypt(app)
 
 from app.main.routes import main
+from app.auth.routes import auth
 app.register_blueprint(main)
+app.register_blueprint(auth)
