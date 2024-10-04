@@ -13,7 +13,7 @@ services:
     build: .
     command: python3 app.py
     environment:
-      - SECRET_KEY='itsasecret'
+      - SECRET_KEY=itsasecret
       - FLASK_APP=app.extensions:app
       - FLASK_ENV=development
       - DATABASE_URL=postgresql://postgres:5b2e05cd8c3526e3@merkoyep-final-project-db.dev.merkoyep.me:5432/postgres
