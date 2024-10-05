@@ -1,3 +1,5 @@
+![Uptime Status](https://img.shields.io/uptimerobot/status/m797793328)
+
 # Meal Planner
 
 As part of ACS1220, the goal of this project is to demonstrate my learnings about Authentication and Authorization through a project that allows users to add, update, and delete meals from a database, as well as schedule them by date.
