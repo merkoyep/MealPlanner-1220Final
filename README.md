@@ -1,4 +1,4 @@
-[![Uptime Status](https://img.shields.io/uptimerobot/status/m797793328)](https://stats.uptimerobot.com/N9kZsJTUQg)
+![Uptime Robot status](https://img.shields.io/uptimerobot/status/797793328)
 
 # Meal Planner
 
