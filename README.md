@@ -1,18 +1,24 @@
 # ACS 3220 Final Project: Deployment
 
-## Badges
+## Monitoring
 
 Uptime Monitoring: ![Uptime Robot status](https://img.shields.io/uptimerobot/status/m797793328-0067fae8a7097ead57c55824)
 
+[Uptime status page] (https://stats.uptimerobot.com/N9kZsJTUQg)
+
 Uptime Robot Ratio (7 Days) ![Uptime Robot ratio (7 days)](https://img.shields.io/uptimerobot/ratio/7/m797793328-0067fae8a7097ead57c55824)
 
-### Build and Run with Docker Compose
+## How to Build and Run with Docker Compose
 
 To build and run the project, simply use:
 
 ```bash
 docker-compose up --build
 ```
+
+## Link to deployed project
+
+[http://deployed-final-project.dev.merkoyep.me/] (http://deployed-final-project.dev.merkoyep.me/)
 
 # ACS 1220 Final Project: Build
 
