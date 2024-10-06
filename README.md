@@ -18,7 +18,7 @@ docker-compose up --build
 
 ## Link to deployed project
 
-[http://deployed-final-project.dev.merkoyep.me/] (http://deployed-final-project.dev.merkoyep.me/)
+http://deployed-final-project.dev.merkoyep.me/
 
 # ACS 1220 Final Project: Build
 
